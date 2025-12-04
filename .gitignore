@@ -801,4 +801,5 @@ fabric.properties
 !/.env
 .env
 
-/lesson
+lesson/
+media/
