@@ -37,10 +37,11 @@ def index(request):
 
 def place_detail(request, place_id):
     place = get_object_or_404(Place, pk=place_id)
+    image_urls = [img.image.url for img in place.imgs.all()]
 
     place_data = {
         "title": place.title,
-        "imgs": [img.image.url for img in place.imgs.all()],
+        "imgs": image_urls,
         "description_short": place.description_short,
         "description_long": place.description_long,
         "coordinates": {
