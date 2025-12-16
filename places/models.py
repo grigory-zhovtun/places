@@ -20,6 +20,9 @@ class Image(models.Model):
 
     class Meta:
         ordering = ['position']
+        indexes = [
+            models.Index(fields=['position']),
+        ]
 
     def __str__(self):
         return f'{self.position} {self.place.title}'
