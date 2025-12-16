@@ -1,7 +1,9 @@
 from django.contrib import admin
-from .models import Place, Image
 from django.utils.html import format_html
+
 from adminsortable2.admin import SortableAdminBase, SortableTabularInline
+
+from .models import Image, Place
 
 
 class ImageInline(SortableTabularInline):
@@ -26,4 +28,6 @@ class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
     ]
 
 
-admin.site.register(Image)
+@admin.register(Image)
+class ImageAdmin(admin.ModelAdmin):
+    raw_id_fields = ['place']
