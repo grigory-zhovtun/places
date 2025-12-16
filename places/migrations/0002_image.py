@@ -6,7 +6,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("places_app", "0001_initial"),
+        ("places", "0001_initial"),
     ]
 
     operations = [
@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="imgs",
-                        to="places_app.place",
+                        to="places.place",
                         verbose_name="Место",
                     ),
                 ),
