@@ -54,12 +54,14 @@ class Command(BaseCommand):
                 img_response.raise_for_status()
 
                 img_name = img_url.split('/')[-1]
-                content = ContentFile(img_response.content)
+                image = Image.objects.create(place=place, position=index)
+                image.image.save(
+                    img_name,
+                    ContentFile(img_response.content),
+                    save=True
+                )
 
-                new_image = Image(place=place, position=index)
-                new_image.image.save(img_name, content, save=True)
-
-                self.stdout.write(f" - Фото {index} ({img_name}) сохранено")
+                self.stdout.write(f' - Фото {index} ({img_name}) сохранено')
 
             except requests.exceptions.RequestException as e:
                 self.stdout.write(self.style.WARNING(f" - Не удалось скачать фото {img_url}: {e}"))
