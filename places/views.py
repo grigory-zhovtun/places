@@ -8,26 +8,26 @@ from .models import Place
 def index(request):
     features = [
         {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [place.lng, place.lat]
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [place.lng, place.lat]
             },
-            "properties": {
-                "title": place.title,
-                "placeId": place.id,
-                "detailsUrl": reverse('place_detail', args=[place.id]),
+            'properties': {
+                'title': place.title,
+                'placeId': place.id,
+                'detailsUrl': reverse('place_detail', args=[place.id]),
             }
         } for place in Place.objects.all()
     ]
 
     places_geojson = {
-        "type": "FeatureCollection",
-        "features": features
+        'type': 'FeatureCollection',
+        'features': features
     }
 
     context = {
-        "places_geojson": places_geojson
+        'places_geojson': places_geojson
     }
     return render(request, 'index.html', context)
 
@@ -37,13 +37,13 @@ def place_detail(request, place_id):
     image_urls = [img.image.url for img in place.imgs.all()]
 
     place_data = {
-        "title": place.title,
-        "imgs": image_urls,
-        "description_short": place.short_description,
-        "description_long": place.long_description,
-        "coordinates": {
-            "lat": place.lat,
-            "lng": place.lng,
+        'title': place.title,
+        'imgs': image_urls,
+        'description_short': place.short_description,
+        'description_long': place.long_description,
+        'coordinates': {
+            'lat': place.lat,
+            'lng': place.lng,
         }
     }
 
