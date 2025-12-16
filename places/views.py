@@ -6,28 +6,25 @@ from .models import Place
 
 
 def index(request):
-    places_geojson = {
-        "type": "FeatureCollection",
-        "features": []
-    }
-
-    for place in Place.objects.all():
-        feature = {
+    features = [
+        {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [
-                    place.lng,
-                    place.lat
-                ]
+                "coordinates": [place.lng, place.lat]
             },
             "properties": {
                 "title": place.title,
                 "placeId": place.id,
                 "detailsUrl": reverse('place_detail', args=[place.id]),
             }
-        }
-        places_geojson["features"].append(feature)
+        } for place in Place.objects.all()
+    ]
+
+    places_geojson = {
+        "type": "FeatureCollection",
+        "features": features
+    }
 
     context = {
         "places_geojson": places_geojson
